@@ -1,0 +1,2701 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <style>    #toc ul {      width: 200px;       margin: auto;      border: 1px solid #c1c1c1;       padding: 15px 0px 5px 30px;    }    </style><meta charset="windows-1252"/>
+<meta content="SAS 9.4" name="generator"/>
+<title>Fish Catch Data by Species</title>
+<style>
+/*<![CDATA[*/
+.body.c section > table, .body.c section > pre, .body.c div > table,
+.body.c div > pre, .body.c article > table, .body.c article > pre,
+.body.j section > table, .body.j section > pre, .body.j div > table,
+.body.j div > pre, .body.j article > table, .body.j article > pre,
+.body.c p.note, .body.c p.warning, .body.c p.error, .body.c p.fatal,
+.body.j p.note, .body.j p.warning, .body.j p.error, .body.j p.fatal,
+.body.c > table.layoutcontainer, .body.j > table.layoutcontainer { margin-left: auto; margin-right: auto }
+.layoutregion.l table, .layoutregion.l pre, .layoutregion.l p.note,
+.layoutregion.l p.warning, .layoutregion.l p.error, .layoutregion.l p.fatal { margin-left: 0 }
+.layoutregion.c table, .layoutregion.c pre, .layoutregion.c p.note,
+.layoutregion.c p.warning, .layoutregion.c p.error, .layoutregion.c p.fatal { margin-left: auto; margin-right: auto }
+.layoutregion.r table, .layoutregion.r pre, .layoutregion.r p.note,
+.layoutregion.r table, .layoutregion.r pre, .layoutregion.r p.note,
+.layoutregion.r p.warning, .layoutregion.r p.error, .layoutregion.r p.fatal { margin-right: 0 }
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block }
+html{ font-size: 100% }
+.body { margin: 1em; font-size: 13px; line-height: 1.231 }
+sup { position: relative; vertical-align: baseline; bottom: 0.25em; font-size: 0.8em }
+sub { position: relative; vertical-align: baseline; top: 0.25em; font-size: 0.8em }
+ul, ol { margin: 1em 0; padding: 0 0 0 40px }
+dd { margin: 0 0 0 40px }
+nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0 }
+img { border: 0; vertical-align: middle }
+svg:not(:root) { overflow: hidden }
+figure { margin: 0 }
+table { border-collapse: collapse; border-spacing: 0 }
+.layoutcontainer { border-collapse: separate; border-spacing: 0 }
+p { margin-top: 0; text-align: left }
+span { text-align: left }
+table { margin-bottom: 1em }
+td, th { text-align: left; padding: 3px 6px; vertical-align: top }
+td[class$="fixed"], th[class$="fixed"] { white-space: pre }
+section, article { padding-top: 1px }
+hr.pagebreak { height: 0px; border: 0; border-bottom: 1px solid #c0c0c0; margin: 1em 0 }
+.stacked-value { text-align: left; display: block }
+.stacked-cell > .stacked-value, td.data > td.data, th.data > td.data, th.data > th.data, td.data > th.data, th.header > th.header { border: 0 }
+.systitleandfootercontainer { white-space: nowrap; margin-bottom: 1em }
+.systitleandfootercontainer > p { margin: 0 }
+.systitleandfootercontainer > p > span { display: inline-block; width: 100%; white-space: normal }
+.batch { display: table }
+.toc { display: none }
+.proc_note_group, .proc_title_group { margin-bottom: 1em }
+p.proctitle { margin: 0 }
+p.note, p.warning, p.error, p.fatal { display: table }
+.notebanner, .warnbanner, .errorbanner, .fatalbanner,
+.notecontent, .warncontent, .errorcontent, .fatalcontent { display: table-cell; padding: 0.5em }
+.notebanner, .warnbanner, .errorbanner, .fatalbanner { padding-right: 0 }
+.body > div > ol li { text-align: left }
+.c { text-align: center }
+.r { text-align: right }
+.l { text-align: left }
+.j { text-align: justify }
+.d { text-align: right }
+.b { vertical-align: bottom }
+.m { vertical-align: middle }
+.t { vertical-align: top }
+.aftercaption {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+    padding-top: 4pt;
+}
+.batch > colgroup {
+    border-left: 1px solid #c1c1c1;
+    border-right: 1px solid #c1c1c1;
+}
+.batch > tbody, .batch > thead, .batch > tfoot {
+    border-top: 1px solid #c1c1c1;
+    border-bottom: 1px solid #c1c1c1;
+}
+.batch { border: hidden; }
+.batch {
+    background-color: #fafbfe;
+    border: 1px solid #c1c1c1;
+    border-collapse: separate;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: 'SAS Monospace', 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    padding: 7px;
+    }
+.beforecaption {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.body {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.bodydate {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    text-align: right;
+    vertical-align: top;
+    width: 100%;
+}
+.bycontentfolder {
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.byline {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.bylinecontainer > col, .bylinecontainer > colgroup > col, .bylinecontainer > colgroup, .bylinecontainer > tr, .bylinecontainer > * > tr, .bylinecontainer > thead, .bylinecontainer > tbody, .bylinecontainer > tfoot { border: none; }
+.bylinecontainer {
+    background-color: #fafbfe;
+    border: none;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.caption {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.cell, .container {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.contentfolder, .contentitem {
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.contentproclabel, .contentprocname {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.contents {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: decimal;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.contentsdate {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.contenttitle {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: bold;
+}
+.continued {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+    width: 100%;
+}
+.data, .dataemphasis {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.dataemphasisfixed {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.dataempty {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.datafixed {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.datastrong {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.datastrongfixed {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.date {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.document {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.errorbanner {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.errorcontent {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.errorcontentfixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.extendedpage {
+    background-color: #fafbfe;
+    border-style: solid;
+    border-width: 1pt;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+    text-align: center;
+}
+.fatalbanner {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.fatalcontent {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.fatalcontentfixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.folderaction {
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.footer {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.footeremphasis {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.footeremphasisfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.footerempty {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.footerfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.footerstrong {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.footerstrongfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.frame {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.graph > colgroup {
+    border-left: 1px solid #c1c1c1;
+    border-right: 1px solid #c1c1c1;
+}
+.graph > tbody, .graph > thead, .graph > tfoot {
+    border-top: 1px solid #c1c1c1;
+    border-bottom: 1px solid #c1c1c1;
+}
+.graph { border: hidden; }
+.graph {
+    background-color: #fafbfe;
+    border: 1px solid #c1c1c1;
+    border-collapse: separate;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    }
+.header {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.headeremphasis {
+    background-color: #d8dbd3;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.headeremphasisfixed {
+    background-color: #d8dbd3;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.headerempty {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.headerfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.headersandfooters {
+    background-color: #edf2f9;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.headerstrong {
+    background-color: #d8dbd3;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.headerstrongfixed {
+    background-color: #d8dbd3;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.index {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.indexaction, .indexitem {
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.indexprocname {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.indextitle {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: bold;
+}
+.layoutcontainer > col, .layoutcontainer > colgroup > col, .layoutcontainer > colgroup, .layoutcontainer > tr, .layoutcontainer > * > tr, .layoutcontainer > thead, .layoutcontainer > tbody, .layoutcontainer > tfoot, .layoutregion > col, .layoutregion > colgroup > col, .layoutregion > colgroup, .layoutregion > tr, .layoutregion > * > tr, .layoutregion > thead, .layoutregion > tbody, .layoutregion > tfoot { border: none; }
+.layoutcontainer, .layoutregion {
+    border: none;
+    border-spacing: 30px;
+    }
+.linecontent {
+    background-color: #fafbfe;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.list {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: disc;
+}
+.list10 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: square;
+}
+.list2 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: circle;
+}
+.list3, .list4, .list5, .list6, .list7, .list8, .list9 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: square;
+}
+.listitem {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: disc;
+}
+.listitem10 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: square;
+}
+.listitem2 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: circle;
+}
+.listitem3, .listitem4, .listitem5, .listitem6, .listitem7, .listitem8, .listitem9 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: square;
+}
+.note {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.notebanner {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.notecontent {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.notecontentfixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.output > colgroup {
+    border-left: 1px solid #c1c1c1;
+    border-right: 1px solid #c1c1c1;
+}
+.output > tbody, .output > thead, .output > tfoot {
+    border-top: 1px solid #c1c1c1;
+    border-bottom: 1px solid #c1c1c1;
+}
+.output { border: hidden; }
+.output {
+    background-color: #fafbfe;
+    border: 1px solid #c1c1c1;
+    border-collapse: separate;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    }
+.pageno {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+    text-align: right;
+    vertical-align: top;
+}
+.pages {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: decimal;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.pagesdate {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.pagesitem {
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.pagesproclabel, .pagesprocname {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.pagestitle {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: bold;
+}
+.paragraph {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.parskip > col, .parskip > colgroup > col, .parskip > colgroup, .parskip > tr, .parskip > * > tr, .parskip > thead, .parskip > tbody, .parskip > tfoot { border: none; }
+.parskip {
+    border: none;
+    border-spacing: 0;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+    }
+.prepage {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    text-align: left;
+}
+.proctitle {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.proctitlefixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.rowfooter {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.rowfooteremphasis {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.rowfooteremphasisfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.rowfooterempty {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.rowfooterfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.rowfooterstrong {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.rowfooterstrongfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.rowheader {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.rowheaderemphasis {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.rowheaderemphasisfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.rowheaderempty {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.rowheaderfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.rowheaderstrong {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.rowheaderstrongfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.systemfooter, .systemfooter10, .systemfooter2, .systemfooter3, .systemfooter4, .systemfooter5, .systemfooter6, .systemfooter7, .systemfooter8, .systemfooter9 {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.systemtitle, .systemtitle10, .systemtitle2, .systemtitle3, .systemtitle4, .systemtitle5, .systemtitle6, .systemtitle7, .systemtitle8, .systemtitle9 {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: small;
+    font-style: normal;
+    font-weight: bold;
+}
+.systitleandfootercontainer > col, .systitleandfootercontainer > colgroup > col, .systitleandfootercontainer > colgroup, .systitleandfootercontainer > tr, .systitleandfootercontainer > * > tr, .systitleandfootercontainer > thead, .systitleandfootercontainer > tbody, .systitleandfootercontainer > tfoot { border: none; }
+.systitleandfootercontainer {
+    background-color: #fafbfe;
+    border: none;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.table > col, .table > colgroup > col {
+    border-left: 1px solid #c1c1c1;
+    border-right: 0 solid #c1c1c1;
+}
+.table > tr, .table > * > tr {
+    border-top: 1px solid #c1c1c1;
+    border-bottom: 0 solid #c1c1c1;
+}
+.table { border: hidden; }
+.table {
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 1px 0 0 1px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    }
+.titleandnotecontainer > col, .titleandnotecontainer > colgroup > col, .titleandnotecontainer > colgroup, .titleandnotecontainer > tr, .titleandnotecontainer > * > tr, .titleandnotecontainer > thead, .titleandnotecontainer > tbody, .titleandnotecontainer > tfoot { border: none; }
+.titleandnotecontainer {
+    background-color: #fafbfe;
+    border: none;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.titlesandfooters {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.usertext {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.warnbanner {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.warncontent {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.warncontentfixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+/*]]>*/
+</style>
+</head>
+<body class="c body">
+<div id="IDX" class="systitleandfootercontainer" style="border-spacing: 1px">
+<p><span class="c systemtitle">Finland&apos;s Lake Laengelmavesi Fish Catch Data by Species</span> </p>
+</div>
+<p class="usertext"><h1>Finland's Lake Laengelmavesi Fish Catch Data By Species</h1></p>
+<section data-name="Odstext" data-sec-type="proc">
+<article id="toc">
+<p class="paragraph" style="        text-align: center;         font-weight: bold;         font-size: 1.2em;         color: #112277;    ">Table of Contents</p>
+<ul class="list">
+<li class="c listitem"><p><a href='#Species1'>Bream</a></p>
+</li>
+<li class="c listitem"><p><a href='#Species2'>Parkki</a></p>
+</li>
+<li class="c listitem"><p><a href='#Species3'>Perch</a></p>
+</li>
+<li class="c listitem"><p><a href='#Species4'>Pike</a></p>
+</li>
+<li class="c listitem"><p><a href='#Species5'>Roach</a></p>
+</li>
+<li class="c listitem"><p><a href='#Species6'>Smelt</a></p>
+</li>
+<li class="c listitem"><p><a href='#Species7'>Whitefish</a></p>
+</li>
+</ul>
+</article>
+</section>
+<section data-name="Print" data-sec-type="proc">
+<hr class="pagebreak"/>
+<div id="Species1" class="systitleandfootercontainer" style="border-spacing: 1px">
+<p><span class="c systemtitle">Finland&apos;s Lake Laengelmavesi Fish Catch Data by Species</span> </p>
+</div>
+<section>
+<article>
+<p class="c byline" style="border-spacing: 0">Species=Bream</p>
+<table class="table" style="border-spacing: 0">
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">Obs</th>
+<th class="r header" scope="col">Weight</th>
+<th class="r header" scope="col">Length1</th>
+<th class="r header" scope="col">Length2</th>
+<th class="r header" scope="col">Length3</th>
+<th class="r header" scope="col">Height</th>
+<th class="r header" scope="col">Width</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">1</th>
+<td class="r data">242</td>
+<td class="r data">23.2</td>
+<td class="r data">25.4</td>
+<td class="r data">30.0</td>
+<td class="r data">11.5200</td>
+<td class="r data">4.0200</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">2</th>
+<td class="r data">290</td>
+<td class="r data">24.0</td>
+<td class="r data">26.3</td>
+<td class="r data">31.2</td>
+<td class="r data">12.4800</td>
+<td class="r data">4.3056</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">3</th>
+<td class="r data">340</td>
+<td class="r data">23.9</td>
+<td class="r data">26.5</td>
+<td class="r data">31.1</td>
+<td class="r data">12.3778</td>
+<td class="r data">4.6961</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">4</th>
+<td class="r data">363</td>
+<td class="r data">26.3</td>
+<td class="r data">29.0</td>
+<td class="r data">33.5</td>
+<td class="r data">12.7300</td>
+<td class="r data">4.4555</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">5</th>
+<td class="r data">430</td>
+<td class="r data">26.5</td>
+<td class="r data">29.0</td>
+<td class="r data">34.0</td>
+<td class="r data">12.4440</td>
+<td class="r data">5.1340</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">6</th>
+<td class="r data">450</td>
+<td class="r data">26.8</td>
+<td class="r data">29.7</td>
+<td class="r data">34.7</td>
+<td class="r data">13.6024</td>
+<td class="r data">4.9274</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">7</th>
+<td class="r data">500</td>
+<td class="r data">26.8</td>
+<td class="r data">29.7</td>
+<td class="r data">34.5</td>
+<td class="r data">14.1795</td>
+<td class="r data">5.2785</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">8</th>
+<td class="r data">390</td>
+<td class="r data">27.6</td>
+<td class="r data">30.0</td>
+<td class="r data">35.0</td>
+<td class="r data">12.6700</td>
+<td class="r data">4.6900</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">9</th>
+<td class="r data">450</td>
+<td class="r data">27.6</td>
+<td class="r data">30.0</td>
+<td class="r data">35.1</td>
+<td class="r data">14.0049</td>
+<td class="r data">4.8438</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">10</th>
+<td class="r data">500</td>
+<td class="r data">28.5</td>
+<td class="r data">30.7</td>
+<td class="r data">36.2</td>
+<td class="r data">14.2266</td>
+<td class="r data">4.9594</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">11</th>
+<td class="r data">475</td>
+<td class="r data">28.4</td>
+<td class="r data">31.0</td>
+<td class="r data">36.2</td>
+<td class="r data">14.2628</td>
+<td class="r data">5.1042</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">12</th>
+<td class="r data">500</td>
+<td class="r data">28.7</td>
+<td class="r data">31.0</td>
+<td class="r data">36.2</td>
+<td class="r data">14.3714</td>
+<td class="r data">4.8146</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">13</th>
+<td class="r data">500</td>
+<td class="r data">29.1</td>
+<td class="r data">31.5</td>
+<td class="r data">36.4</td>
+<td class="r data">13.7592</td>
+<td class="r data">4.3680</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">14</th>
+<td class="r data">.</td>
+<td class="r data">29.5</td>
+<td class="r data">32.0</td>
+<td class="r data">37.3</td>
+<td class="r data">13.9129</td>
+<td class="r data">5.0728</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">15</th>
+<td class="r data">600</td>
+<td class="r data">29.4</td>
+<td class="r data">32.0</td>
+<td class="r data">37.2</td>
+<td class="r data">14.9544</td>
+<td class="r data">5.1708</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">16</th>
+<td class="r data">600</td>
+<td class="r data">29.4</td>
+<td class="r data">32.0</td>
+<td class="r data">37.2</td>
+<td class="r data">15.4380</td>
+<td class="r data">5.5800</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">17</th>
+<td class="r data">700</td>
+<td class="r data">30.4</td>
+<td class="r data">33.0</td>
+<td class="r data">38.3</td>
+<td class="r data">14.8604</td>
+<td class="r data">5.2854</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">18</th>
+<td class="r data">700</td>
+<td class="r data">30.4</td>
+<td class="r data">33.0</td>
+<td class="r data">38.5</td>
+<td class="r data">14.9380</td>
+<td class="r data">5.1975</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">19</th>
+<td class="r data">610</td>
+<td class="r data">30.9</td>
+<td class="r data">33.5</td>
+<td class="r data">38.6</td>
+<td class="r data">15.6330</td>
+<td class="r data">5.1338</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">20</th>
+<td class="r data">650</td>
+<td class="r data">31.0</td>
+<td class="r data">33.5</td>
+<td class="r data">38.7</td>
+<td class="r data">14.4738</td>
+<td class="r data">5.7276</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">21</th>
+<td class="r data">575</td>
+<td class="r data">31.3</td>
+<td class="r data">34.0</td>
+<td class="r data">39.5</td>
+<td class="r data">15.1285</td>
+<td class="r data">5.5695</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">22</th>
+<td class="r data">685</td>
+<td class="r data">31.4</td>
+<td class="r data">34.0</td>
+<td class="r data">39.2</td>
+<td class="r data">15.9936</td>
+<td class="r data">5.3704</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">23</th>
+<td class="r data">620</td>
+<td class="r data">31.5</td>
+<td class="r data">34.5</td>
+<td class="r data">39.7</td>
+<td class="r data">15.5227</td>
+<td class="r data">5.2801</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">24</th>
+<td class="r data">680</td>
+<td class="r data">31.8</td>
+<td class="r data">35.0</td>
+<td class="r data">40.6</td>
+<td class="r data">15.4686</td>
+<td class="r data">6.1306</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">25</th>
+<td class="r data">700</td>
+<td class="r data">31.9</td>
+<td class="r data">35.0</td>
+<td class="r data">40.5</td>
+<td class="r data">16.2405</td>
+<td class="r data">5.5890</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">26</th>
+<td class="r data">725</td>
+<td class="r data">31.8</td>
+<td class="r data">35.0</td>
+<td class="r data">40.9</td>
+<td class="r data">16.3600</td>
+<td class="r data">6.0532</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">27</th>
+<td class="r data">720</td>
+<td class="r data">32.0</td>
+<td class="r data">35.0</td>
+<td class="r data">40.6</td>
+<td class="r data">16.3618</td>
+<td class="r data">6.0900</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">28</th>
+<td class="r data">714</td>
+<td class="r data">32.7</td>
+<td class="r data">36.0</td>
+<td class="r data">41.5</td>
+<td class="r data">16.5170</td>
+<td class="r data">5.8515</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">29</th>
+<td class="r data">850</td>
+<td class="r data">32.8</td>
+<td class="r data">36.0</td>
+<td class="r data">41.6</td>
+<td class="r data">16.8896</td>
+<td class="r data">6.1984</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">30</th>
+<td class="r data">1000</td>
+<td class="r data">33.5</td>
+<td class="r data">37.0</td>
+<td class="r data">42.6</td>
+<td class="r data">18.9570</td>
+<td class="r data">6.6030</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">31</th>
+<td class="r data">920</td>
+<td class="r data">35.0</td>
+<td class="r data">38.5</td>
+<td class="r data">44.1</td>
+<td class="r data">18.0369</td>
+<td class="r data">6.3063</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">32</th>
+<td class="r data">955</td>
+<td class="r data">35.0</td>
+<td class="r data">38.5</td>
+<td class="r data">44.0</td>
+<td class="r data">18.0840</td>
+<td class="r data">6.2920</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">33</th>
+<td class="r data">925</td>
+<td class="r data">36.2</td>
+<td class="r data">39.5</td>
+<td class="r data">45.3</td>
+<td class="r data">18.7542</td>
+<td class="r data">6.7497</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">34</th>
+<td class="r data">975</td>
+<td class="r data">37.4</td>
+<td class="r data">41.0</td>
+<td class="r data">45.9</td>
+<td class="r data">18.6354</td>
+<td class="r data">6.7473</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">35</th>
+<td class="r data">950</td>
+<td class="r data">38.0</td>
+<td class="r data">41.0</td>
+<td class="r data">46.5</td>
+<td class="r data">17.6235</td>
+<td class="r data">6.3705</td>
+</tr>
+</tbody>
+</table>
+<a href='#toc'>Back to Table of Contents</a></article>
+</section>
+<section id="Species2">
+<article>
+<p class="c byline" style="border-spacing: 0">Species=Parkki</p>
+<table class="table" style="border-spacing: 0">
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">Obs</th>
+<th class="r header" scope="col">Weight</th>
+<th class="r header" scope="col">Length1</th>
+<th class="r header" scope="col">Length2</th>
+<th class="r header" scope="col">Length3</th>
+<th class="r header" scope="col">Height</th>
+<th class="r header" scope="col">Width</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">36</th>
+<td class="r data">55</td>
+<td class="r data">13.5</td>
+<td class="r data">14.7</td>
+<td class="r data">16.5</td>
+<td class="r data">6.8475</td>
+<td class="r data">2.3265</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">37</th>
+<td class="r data">60</td>
+<td class="r data">14.3</td>
+<td class="r data">15.5</td>
+<td class="r data">17.4</td>
+<td class="r data">6.5772</td>
+<td class="r data">2.3142</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">38</th>
+<td class="r data">90</td>
+<td class="r data">16.3</td>
+<td class="r data">17.7</td>
+<td class="r data">19.8</td>
+<td class="r data">7.4052</td>
+<td class="r data">2.6730</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">39</th>
+<td class="r data">120</td>
+<td class="r data">17.5</td>
+<td class="r data">19.0</td>
+<td class="r data">21.3</td>
+<td class="r data">8.3922</td>
+<td class="r data">2.9181</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">40</th>
+<td class="r data">150</td>
+<td class="r data">18.4</td>
+<td class="r data">20.0</td>
+<td class="r data">22.4</td>
+<td class="r data">8.8928</td>
+<td class="r data">3.2928</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">41</th>
+<td class="r data">140</td>
+<td class="r data">19.0</td>
+<td class="r data">20.7</td>
+<td class="r data">23.2</td>
+<td class="r data">8.5376</td>
+<td class="r data">3.2944</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">42</th>
+<td class="r data">170</td>
+<td class="r data">19.0</td>
+<td class="r data">20.7</td>
+<td class="r data">23.2</td>
+<td class="r data">9.3960</td>
+<td class="r data">3.4104</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">43</th>
+<td class="r data">145</td>
+<td class="r data">19.8</td>
+<td class="r data">21.5</td>
+<td class="r data">24.1</td>
+<td class="r data">9.7364</td>
+<td class="r data">3.1571</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">44</th>
+<td class="r data">200</td>
+<td class="r data">21.2</td>
+<td class="r data">23.0</td>
+<td class="r data">25.8</td>
+<td class="r data">10.3458</td>
+<td class="r data">3.6636</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">45</th>
+<td class="r data">273</td>
+<td class="r data">23.0</td>
+<td class="r data">25.0</td>
+<td class="r data">28.0</td>
+<td class="r data">11.0880</td>
+<td class="r data">4.1440</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">46</th>
+<td class="r data">300</td>
+<td class="r data">24.0</td>
+<td class="r data">26.0</td>
+<td class="r data">29.0</td>
+<td class="r data">11.3680</td>
+<td class="r data">4.2340</td>
+</tr>
+</tbody>
+</table>
+<a href='#toc'>Back to Table of Contents</a></article>
+</section>
+<section id="Species3">
+<article>
+<p class="c byline" style="border-spacing: 0">Species=Perch</p>
+<table class="table" style="border-spacing: 0">
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">Obs</th>
+<th class="r header" scope="col">Weight</th>
+<th class="r header" scope="col">Length1</th>
+<th class="r header" scope="col">Length2</th>
+<th class="r header" scope="col">Length3</th>
+<th class="r header" scope="col">Height</th>
+<th class="r header" scope="col">Width</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">47</th>
+<td class="r data">5.9</td>
+<td class="r data">7.5</td>
+<td class="r data">8.4</td>
+<td class="r data">8.8</td>
+<td class="r data">2.1120</td>
+<td class="r data">1.4080</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">48</th>
+<td class="r data">32.0</td>
+<td class="r data">12.5</td>
+<td class="r data">13.7</td>
+<td class="r data">14.7</td>
+<td class="r data">3.5280</td>
+<td class="r data">1.9992</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">49</th>
+<td class="r data">40.0</td>
+<td class="r data">13.8</td>
+<td class="r data">15.0</td>
+<td class="r data">16.0</td>
+<td class="r data">3.8240</td>
+<td class="r data">2.4320</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">50</th>
+<td class="r data">51.5</td>
+<td class="r data">15.0</td>
+<td class="r data">16.2</td>
+<td class="r data">17.2</td>
+<td class="r data">4.5924</td>
+<td class="r data">2.6316</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">51</th>
+<td class="r data">70.0</td>
+<td class="r data">15.7</td>
+<td class="r data">17.4</td>
+<td class="r data">18.5</td>
+<td class="r data">4.5880</td>
+<td class="r data">2.9415</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">52</th>
+<td class="r data">100.0</td>
+<td class="r data">16.2</td>
+<td class="r data">18.0</td>
+<td class="r data">19.2</td>
+<td class="r data">5.2224</td>
+<td class="r data">3.3216</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">53</th>
+<td class="r data">78.0</td>
+<td class="r data">16.8</td>
+<td class="r data">18.7</td>
+<td class="r data">19.4</td>
+<td class="r data">5.1992</td>
+<td class="r data">3.1234</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">54</th>
+<td class="r data">80.0</td>
+<td class="r data">17.2</td>
+<td class="r data">19.0</td>
+<td class="r data">20.2</td>
+<td class="r data">5.6358</td>
+<td class="r data">3.0502</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">55</th>
+<td class="r data">85.0</td>
+<td class="r data">17.8</td>
+<td class="r data">19.6</td>
+<td class="r data">20.8</td>
+<td class="r data">5.1376</td>
+<td class="r data">3.0368</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">56</th>
+<td class="r data">85.0</td>
+<td class="r data">18.2</td>
+<td class="r data">20.0</td>
+<td class="r data">21.0</td>
+<td class="r data">5.0820</td>
+<td class="r data">2.7720</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">57</th>
+<td class="r data">110.0</td>
+<td class="r data">19.0</td>
+<td class="r data">21.0</td>
+<td class="r data">22.5</td>
+<td class="r data">5.6925</td>
+<td class="r data">3.5550</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">58</th>
+<td class="r data">115.0</td>
+<td class="r data">19.0</td>
+<td class="r data">21.0</td>
+<td class="r data">22.5</td>
+<td class="r data">5.9175</td>
+<td class="r data">3.3075</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">59</th>
+<td class="r data">125.0</td>
+<td class="r data">19.0</td>
+<td class="r data">21.0</td>
+<td class="r data">22.5</td>
+<td class="r data">5.6925</td>
+<td class="r data">3.6675</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">60</th>
+<td class="r data">130.0</td>
+<td class="r data">19.3</td>
+<td class="r data">21.3</td>
+<td class="r data">22.8</td>
+<td class="r data">6.3840</td>
+<td class="r data">3.5340</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">61</th>
+<td class="r data">120.0</td>
+<td class="r data">20.0</td>
+<td class="r data">22.0</td>
+<td class="r data">23.5</td>
+<td class="r data">6.1100</td>
+<td class="r data">3.4075</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">62</th>
+<td class="r data">120.0</td>
+<td class="r data">20.0</td>
+<td class="r data">22.0</td>
+<td class="r data">23.5</td>
+<td class="r data">5.6400</td>
+<td class="r data">3.5250</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">63</th>
+<td class="r data">130.0</td>
+<td class="r data">20.0</td>
+<td class="r data">22.0</td>
+<td class="r data">23.5</td>
+<td class="r data">6.1100</td>
+<td class="r data">3.5250</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">64</th>
+<td class="r data">135.0</td>
+<td class="r data">20.0</td>
+<td class="r data">22.0</td>
+<td class="r data">23.5</td>
+<td class="r data">5.8750</td>
+<td class="r data">3.5250</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">65</th>
+<td class="r data">110.0</td>
+<td class="r data">20.0</td>
+<td class="r data">22.0</td>
+<td class="r data">23.5</td>
+<td class="r data">5.5225</td>
+<td class="r data">3.9950</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">66</th>
+<td class="r data">130.0</td>
+<td class="r data">20.5</td>
+<td class="r data">22.5</td>
+<td class="r data">24.0</td>
+<td class="r data">5.8560</td>
+<td class="r data">3.6240</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">67</th>
+<td class="r data">150.0</td>
+<td class="r data">20.5</td>
+<td class="r data">22.5</td>
+<td class="r data">24.0</td>
+<td class="r data">6.7920</td>
+<td class="r data">3.6240</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">68</th>
+<td class="r data">145.0</td>
+<td class="r data">20.7</td>
+<td class="r data">22.7</td>
+<td class="r data">24.2</td>
+<td class="r data">5.9532</td>
+<td class="r data">3.6300</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">69</th>
+<td class="r data">150.0</td>
+<td class="r data">21.0</td>
+<td class="r data">23.0</td>
+<td class="r data">24.5</td>
+<td class="r data">5.2185</td>
+<td class="r data">3.6260</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">70</th>
+<td class="r data">170.0</td>
+<td class="r data">21.5</td>
+<td class="r data">23.5</td>
+<td class="r data">25.0</td>
+<td class="r data">6.2750</td>
+<td class="r data">3.7250</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">71</th>
+<td class="r data">225.0</td>
+<td class="r data">22.0</td>
+<td class="r data">24.0</td>
+<td class="r data">25.5</td>
+<td class="r data">7.2930</td>
+<td class="r data">3.7230</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">72</th>
+<td class="r data">145.0</td>
+<td class="r data">22.0</td>
+<td class="r data">24.0</td>
+<td class="r data">25.5</td>
+<td class="r data">6.3750</td>
+<td class="r data">3.8250</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">73</th>
+<td class="r data">188.0</td>
+<td class="r data">22.6</td>
+<td class="r data">24.6</td>
+<td class="r data">26.2</td>
+<td class="r data">6.7334</td>
+<td class="r data">4.1658</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">74</th>
+<td class="r data">180.0</td>
+<td class="r data">23.0</td>
+<td class="r data">25.0</td>
+<td class="r data">26.5</td>
+<td class="r data">6.4395</td>
+<td class="r data">3.6835</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">75</th>
+<td class="r data">197.0</td>
+<td class="r data">23.5</td>
+<td class="r data">25.6</td>
+<td class="r data">27.0</td>
+<td class="r data">6.5610</td>
+<td class="r data">4.2390</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">76</th>
+<td class="r data">218.0</td>
+<td class="r data">25.0</td>
+<td class="r data">26.5</td>
+<td class="r data">28.0</td>
+<td class="r data">7.1680</td>
+<td class="r data">4.1440</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">77</th>
+<td class="r data">300.0</td>
+<td class="r data">25.2</td>
+<td class="r data">27.3</td>
+<td class="r data">28.7</td>
+<td class="r data">8.3230</td>
+<td class="r data">5.1373</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">78</th>
+<td class="r data">260.0</td>
+<td class="r data">25.4</td>
+<td class="r data">27.5</td>
+<td class="r data">28.9</td>
+<td class="r data">7.1672</td>
+<td class="r data">4.3350</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">79</th>
+<td class="r data">265.0</td>
+<td class="r data">25.4</td>
+<td class="r data">27.5</td>
+<td class="r data">28.9</td>
+<td class="r data">7.0516</td>
+<td class="r data">4.3350</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">80</th>
+<td class="r data">250.0</td>
+<td class="r data">25.4</td>
+<td class="r data">27.5</td>
+<td class="r data">28.9</td>
+<td class="r data">7.2828</td>
+<td class="r data">4.5662</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">81</th>
+<td class="r data">250.0</td>
+<td class="r data">25.9</td>
+<td class="r data">28.0</td>
+<td class="r data">29.4</td>
+<td class="r data">7.8204</td>
+<td class="r data">4.2042</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">82</th>
+<td class="r data">300.0</td>
+<td class="r data">26.9</td>
+<td class="r data">28.7</td>
+<td class="r data">30.1</td>
+<td class="r data">7.5852</td>
+<td class="r data">4.6354</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">83</th>
+<td class="r data">320.0</td>
+<td class="r data">27.8</td>
+<td class="r data">30.0</td>
+<td class="r data">31.6</td>
+<td class="r data">7.6156</td>
+<td class="r data">4.7716</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">84</th>
+<td class="r data">514.0</td>
+<td class="r data">30.5</td>
+<td class="r data">32.8</td>
+<td class="r data">34.0</td>
+<td class="r data">10.0300</td>
+<td class="r data">6.0180</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">85</th>
+<td class="r data">556.0</td>
+<td class="r data">32.0</td>
+<td class="r data">34.5</td>
+<td class="r data">36.5</td>
+<td class="r data">10.2565</td>
+<td class="r data">6.3875</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">86</th>
+<td class="r data">840.0</td>
+<td class="r data">32.5</td>
+<td class="r data">35.0</td>
+<td class="r data">37.3</td>
+<td class="r data">11.4884</td>
+<td class="r data">7.7957</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">87</th>
+<td class="r data">685.0</td>
+<td class="r data">34.0</td>
+<td class="r data">36.5</td>
+<td class="r data">39.0</td>
+<td class="r data">10.8810</td>
+<td class="r data">6.8640</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">88</th>
+<td class="r data">700.0</td>
+<td class="r data">34.0</td>
+<td class="r data">36.0</td>
+<td class="r data">38.3</td>
+<td class="r data">10.6091</td>
+<td class="r data">6.7408</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">89</th>
+<td class="r data">700.0</td>
+<td class="r data">34.5</td>
+<td class="r data">37.0</td>
+<td class="r data">39.4</td>
+<td class="r data">10.8350</td>
+<td class="r data">6.2646</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">90</th>
+<td class="r data">690.0</td>
+<td class="r data">34.6</td>
+<td class="r data">37.0</td>
+<td class="r data">39.3</td>
+<td class="r data">10.5717</td>
+<td class="r data">6.3666</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">91</th>
+<td class="r data">900.0</td>
+<td class="r data">36.5</td>
+<td class="r data">39.0</td>
+<td class="r data">41.4</td>
+<td class="r data">11.1366</td>
+<td class="r data">7.4934</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">92</th>
+<td class="r data">650.0</td>
+<td class="r data">36.5</td>
+<td class="r data">39.0</td>
+<td class="r data">41.4</td>
+<td class="r data">11.1366</td>
+<td class="r data">6.0030</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">93</th>
+<td class="r data">820.0</td>
+<td class="r data">36.6</td>
+<td class="r data">39.0</td>
+<td class="r data">41.3</td>
+<td class="r data">12.4313</td>
+<td class="r data">7.3514</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">94</th>
+<td class="r data">850.0</td>
+<td class="r data">36.9</td>
+<td class="r data">40.0</td>
+<td class="r data">42.3</td>
+<td class="r data">11.9286</td>
+<td class="r data">7.1064</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">95</th>
+<td class="r data">900.0</td>
+<td class="r data">37.0</td>
+<td class="r data">40.0</td>
+<td class="r data">42.5</td>
+<td class="r data">11.7300</td>
+<td class="r data">7.2250</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">96</th>
+<td class="r data">1015.0</td>
+<td class="r data">37.0</td>
+<td class="r data">40.0</td>
+<td class="r data">42.4</td>
+<td class="r data">12.3808</td>
+<td class="r data">7.4624</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">97</th>
+<td class="r data">820.0</td>
+<td class="r data">37.1</td>
+<td class="r data">40.0</td>
+<td class="r data">42.5</td>
+<td class="r data">11.1350</td>
+<td class="r data">6.6300</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">98</th>
+<td class="r data">1100.0</td>
+<td class="r data">39.0</td>
+<td class="r data">42.0</td>
+<td class="r data">44.6</td>
+<td class="r data">12.8002</td>
+<td class="r data">6.8684</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">99</th>
+<td class="r data">1000.0</td>
+<td class="r data">39.8</td>
+<td class="r data">43.0</td>
+<td class="r data">45.2</td>
+<td class="r data">11.9328</td>
+<td class="r data">7.2772</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">100</th>
+<td class="r data">1100.0</td>
+<td class="r data">40.1</td>
+<td class="r data">43.0</td>
+<td class="r data">45.5</td>
+<td class="r data">12.5125</td>
+<td class="r data">7.4165</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">101</th>
+<td class="r data">1000.0</td>
+<td class="r data">40.2</td>
+<td class="r data">43.5</td>
+<td class="r data">46.0</td>
+<td class="r data">12.6040</td>
+<td class="r data">8.1420</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">102</th>
+<td class="r data">1000.0</td>
+<td class="r data">41.1</td>
+<td class="r data">44.0</td>
+<td class="r data">46.6</td>
+<td class="r data">12.4888</td>
+<td class="r data">7.5958</td>
+</tr>
+</tbody>
+</table>
+<a href='#toc'>Back to Table of Contents</a></article>
+</section>
+<section id="Species4">
+<article>
+<p class="c byline" style="border-spacing: 0">Species=Pike</p>
+<table class="table" style="border-spacing: 0">
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">Obs</th>
+<th class="r header" scope="col">Weight</th>
+<th class="r header" scope="col">Length1</th>
+<th class="r header" scope="col">Length2</th>
+<th class="r header" scope="col">Length3</th>
+<th class="r header" scope="col">Height</th>
+<th class="r header" scope="col">Width</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">103</th>
+<td class="r data">200</td>
+<td class="r data">30.0</td>
+<td class="r data">32.3</td>
+<td class="r data">34.8</td>
+<td class="r data">5.5680</td>
+<td class="r data">3.3756</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">104</th>
+<td class="r data">300</td>
+<td class="r data">31.7</td>
+<td class="r data">34.0</td>
+<td class="r data">37.8</td>
+<td class="r data">5.7078</td>
+<td class="r data">4.1580</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">105</th>
+<td class="r data">300</td>
+<td class="r data">32.7</td>
+<td class="r data">35.0</td>
+<td class="r data">38.8</td>
+<td class="r data">5.9364</td>
+<td class="r data">4.3844</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">106</th>
+<td class="r data">300</td>
+<td class="r data">34.8</td>
+<td class="r data">37.3</td>
+<td class="r data">39.8</td>
+<td class="r data">6.2884</td>
+<td class="r data">4.0198</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">107</th>
+<td class="r data">430</td>
+<td class="r data">35.5</td>
+<td class="r data">38.0</td>
+<td class="r data">40.5</td>
+<td class="r data">7.2900</td>
+<td class="r data">4.5765</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">108</th>
+<td class="r data">345</td>
+<td class="r data">36.0</td>
+<td class="r data">38.5</td>
+<td class="r data">41.0</td>
+<td class="r data">6.3960</td>
+<td class="r data">3.9770</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">109</th>
+<td class="r data">456</td>
+<td class="r data">40.0</td>
+<td class="r data">42.5</td>
+<td class="r data">45.5</td>
+<td class="r data">7.2800</td>
+<td class="r data">4.3225</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">110</th>
+<td class="r data">510</td>
+<td class="r data">40.0</td>
+<td class="r data">42.5</td>
+<td class="r data">45.5</td>
+<td class="r data">6.8250</td>
+<td class="r data">4.4590</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">111</th>
+<td class="r data">540</td>
+<td class="r data">40.1</td>
+<td class="r data">43.0</td>
+<td class="r data">45.8</td>
+<td class="r data">7.7860</td>
+<td class="r data">5.1296</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">112</th>
+<td class="r data">500</td>
+<td class="r data">42.0</td>
+<td class="r data">45.0</td>
+<td class="r data">48.0</td>
+<td class="r data">6.9600</td>
+<td class="r data">4.8960</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">113</th>
+<td class="r data">567</td>
+<td class="r data">43.2</td>
+<td class="r data">46.0</td>
+<td class="r data">48.7</td>
+<td class="r data">7.7920</td>
+<td class="r data">4.8700</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">114</th>
+<td class="r data">770</td>
+<td class="r data">44.8</td>
+<td class="r data">48.0</td>
+<td class="r data">51.2</td>
+<td class="r data">7.6800</td>
+<td class="r data">5.3760</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">115</th>
+<td class="r data">950</td>
+<td class="r data">48.3</td>
+<td class="r data">51.7</td>
+<td class="r data">55.1</td>
+<td class="r data">8.9262</td>
+<td class="r data">6.1712</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">116</th>
+<td class="r data">1250</td>
+<td class="r data">52.0</td>
+<td class="r data">56.0</td>
+<td class="r data">59.7</td>
+<td class="r data">10.6863</td>
+<td class="r data">6.9849</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">117</th>
+<td class="r data">1600</td>
+<td class="r data">56.0</td>
+<td class="r data">60.0</td>
+<td class="r data">64.0</td>
+<td class="r data">9.6000</td>
+<td class="r data">6.1440</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">118</th>
+<td class="r data">1550</td>
+<td class="r data">56.0</td>
+<td class="r data">60.0</td>
+<td class="r data">64.0</td>
+<td class="r data">9.6000</td>
+<td class="r data">6.1440</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">119</th>
+<td class="r data">1650</td>
+<td class="r data">59.0</td>
+<td class="r data">63.4</td>
+<td class="r data">68.0</td>
+<td class="r data">10.8120</td>
+<td class="r data">7.4800</td>
+</tr>
+</tbody>
+</table>
+<a href='#toc'>Back to Table of Contents</a></article>
+</section>
+<section id="Species5">
+<article>
+<p class="c byline" style="border-spacing: 0">Species=Roach</p>
+<table class="table" style="border-spacing: 0">
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">Obs</th>
+<th class="r header" scope="col">Weight</th>
+<th class="r header" scope="col">Length1</th>
+<th class="r header" scope="col">Length2</th>
+<th class="r header" scope="col">Length3</th>
+<th class="r header" scope="col">Height</th>
+<th class="r header" scope="col">Width</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">120</th>
+<td class="r data">40</td>
+<td class="r data">12.9</td>
+<td class="r data">14.1</td>
+<td class="r data">16.2</td>
+<td class="r data">4.1472</td>
+<td class="r data">2.2680</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">121</th>
+<td class="r data">69</td>
+<td class="r data">16.5</td>
+<td class="r data">18.2</td>
+<td class="r data">20.3</td>
+<td class="r data">5.2983</td>
+<td class="r data">2.8217</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">122</th>
+<td class="r data">78</td>
+<td class="r data">17.5</td>
+<td class="r data">18.8</td>
+<td class="r data">21.2</td>
+<td class="r data">5.5756</td>
+<td class="r data">2.9044</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">123</th>
+<td class="r data">87</td>
+<td class="r data">18.2</td>
+<td class="r data">19.8</td>
+<td class="r data">22.2</td>
+<td class="r data">5.6166</td>
+<td class="r data">3.1746</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">124</th>
+<td class="r data">120</td>
+<td class="r data">18.6</td>
+<td class="r data">20.0</td>
+<td class="r data">22.2</td>
+<td class="r data">6.2160</td>
+<td class="r data">3.5742</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">125</th>
+<td class="r data">0</td>
+<td class="r data">19.0</td>
+<td class="r data">20.5</td>
+<td class="r data">22.8</td>
+<td class="r data">6.4752</td>
+<td class="r data">3.3516</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">126</th>
+<td class="r data">110</td>
+<td class="r data">19.1</td>
+<td class="r data">20.8</td>
+<td class="r data">23.1</td>
+<td class="r data">6.1677</td>
+<td class="r data">3.3957</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">127</th>
+<td class="r data">120</td>
+<td class="r data">19.4</td>
+<td class="r data">21.0</td>
+<td class="r data">23.7</td>
+<td class="r data">6.1146</td>
+<td class="r data">3.2943</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">128</th>
+<td class="r data">150</td>
+<td class="r data">20.4</td>
+<td class="r data">22.0</td>
+<td class="r data">24.7</td>
+<td class="r data">5.8045</td>
+<td class="r data">3.7544</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">129</th>
+<td class="r data">145</td>
+<td class="r data">20.5</td>
+<td class="r data">22.0</td>
+<td class="r data">24.3</td>
+<td class="r data">6.6339</td>
+<td class="r data">3.5478</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">130</th>
+<td class="r data">160</td>
+<td class="r data">20.5</td>
+<td class="r data">22.5</td>
+<td class="r data">25.3</td>
+<td class="r data">7.0334</td>
+<td class="r data">3.8203</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">131</th>
+<td class="r data">140</td>
+<td class="r data">21.0</td>
+<td class="r data">22.5</td>
+<td class="r data">25.0</td>
+<td class="r data">6.5500</td>
+<td class="r data">3.3250</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">132</th>
+<td class="r data">160</td>
+<td class="r data">21.1</td>
+<td class="r data">22.5</td>
+<td class="r data">25.0</td>
+<td class="r data">6.4000</td>
+<td class="r data">3.8000</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">133</th>
+<td class="r data">169</td>
+<td class="r data">22.0</td>
+<td class="r data">24.0</td>
+<td class="r data">27.2</td>
+<td class="r data">7.5344</td>
+<td class="r data">3.8352</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">134</th>
+<td class="r data">161</td>
+<td class="r data">22.0</td>
+<td class="r data">23.4</td>
+<td class="r data">26.7</td>
+<td class="r data">6.9153</td>
+<td class="r data">3.6312</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">135</th>
+<td class="r data">200</td>
+<td class="r data">22.1</td>
+<td class="r data">23.5</td>
+<td class="r data">26.8</td>
+<td class="r data">7.3968</td>
+<td class="r data">4.1272</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">136</th>
+<td class="r data">180</td>
+<td class="r data">23.6</td>
+<td class="r data">25.2</td>
+<td class="r data">27.9</td>
+<td class="r data">7.0866</td>
+<td class="r data">3.9060</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">137</th>
+<td class="r data">290</td>
+<td class="r data">24.0</td>
+<td class="r data">26.0</td>
+<td class="r data">29.2</td>
+<td class="r data">8.8768</td>
+<td class="r data">4.4968</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">138</th>
+<td class="r data">272</td>
+<td class="r data">25.0</td>
+<td class="r data">27.0</td>
+<td class="r data">30.6</td>
+<td class="r data">8.5680</td>
+<td class="r data">4.7736</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">139</th>
+<td class="r data">390</td>
+<td class="r data">29.5</td>
+<td class="r data">31.7</td>
+<td class="r data">35.0</td>
+<td class="r data">9.4850</td>
+<td class="r data">5.3550</td>
+</tr>
+</tbody>
+</table>
+<a href='#toc'>Back to Table of Contents</a></article>
+</section>
+<section id="Species6">
+<article>
+<p class="c byline" style="border-spacing: 0">Species=Smelt</p>
+<table class="table" style="border-spacing: 0">
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">Obs</th>
+<th class="r header" scope="col">Weight</th>
+<th class="r header" scope="col">Length1</th>
+<th class="r header" scope="col">Length2</th>
+<th class="r header" scope="col">Length3</th>
+<th class="r header" scope="col">Height</th>
+<th class="r header" scope="col">Width</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">140</th>
+<td class="r data">6.7</td>
+<td class="r data">9.3</td>
+<td class="r data">9.8</td>
+<td class="r data">10.8</td>
+<td class="r data">1.7388</td>
+<td class="r data">1.0476</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">141</th>
+<td class="r data">7.5</td>
+<td class="r data">10.0</td>
+<td class="r data">10.5</td>
+<td class="r data">11.6</td>
+<td class="r data">1.9720</td>
+<td class="r data">1.1600</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">142</th>
+<td class="r data">7.0</td>
+<td class="r data">10.1</td>
+<td class="r data">10.6</td>
+<td class="r data">11.6</td>
+<td class="r data">1.7284</td>
+<td class="r data">1.1484</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">143</th>
+<td class="r data">9.7</td>
+<td class="r data">10.4</td>
+<td class="r data">11.0</td>
+<td class="r data">12.0</td>
+<td class="r data">2.1960</td>
+<td class="r data">1.3800</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">144</th>
+<td class="r data">9.8</td>
+<td class="r data">10.7</td>
+<td class="r data">11.2</td>
+<td class="r data">12.4</td>
+<td class="r data">2.0832</td>
+<td class="r data">1.2772</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">145</th>
+<td class="r data">8.7</td>
+<td class="r data">10.8</td>
+<td class="r data">11.3</td>
+<td class="r data">12.6</td>
+<td class="r data">1.9782</td>
+<td class="r data">1.2852</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">146</th>
+<td class="r data">10.0</td>
+<td class="r data">11.3</td>
+<td class="r data">11.8</td>
+<td class="r data">13.1</td>
+<td class="r data">2.2139</td>
+<td class="r data">1.2838</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">147</th>
+<td class="r data">9.9</td>
+<td class="r data">11.3</td>
+<td class="r data">11.8</td>
+<td class="r data">13.1</td>
+<td class="r data">2.2139</td>
+<td class="r data">1.1659</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">148</th>
+<td class="r data">9.8</td>
+<td class="r data">11.4</td>
+<td class="r data">12.0</td>
+<td class="r data">13.2</td>
+<td class="r data">2.2044</td>
+<td class="r data">1.1484</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">149</th>
+<td class="r data">12.2</td>
+<td class="r data">11.5</td>
+<td class="r data">12.2</td>
+<td class="r data">13.4</td>
+<td class="r data">2.0904</td>
+<td class="r data">1.3936</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">150</th>
+<td class="r data">13.4</td>
+<td class="r data">11.7</td>
+<td class="r data">12.4</td>
+<td class="r data">13.5</td>
+<td class="r data">2.4300</td>
+<td class="r data">1.2690</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">151</th>
+<td class="r data">12.2</td>
+<td class="r data">12.1</td>
+<td class="r data">13.0</td>
+<td class="r data">13.8</td>
+<td class="r data">2.2770</td>
+<td class="r data">1.2558</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">152</th>
+<td class="r data">19.7</td>
+<td class="r data">13.2</td>
+<td class="r data">14.3</td>
+<td class="r data">15.2</td>
+<td class="r data">2.8728</td>
+<td class="r data">2.0672</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">153</th>
+<td class="r data">19.9</td>
+<td class="r data">13.8</td>
+<td class="r data">15.0</td>
+<td class="r data">16.2</td>
+<td class="r data">2.9322</td>
+<td class="r data">1.8792</td>
+</tr>
+</tbody>
+</table>
+<a href='#toc'>Back to Table of Contents</a></article>
+</section>
+<section id="Species7">
+<article>
+<p class="c byline" style="border-spacing: 0">Species=Whitefish</p>
+<table class="table" style="border-spacing: 0">
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">Obs</th>
+<th class="r header" scope="col">Weight</th>
+<th class="r header" scope="col">Length1</th>
+<th class="r header" scope="col">Length2</th>
+<th class="r header" scope="col">Length3</th>
+<th class="r header" scope="col">Height</th>
+<th class="r header" scope="col">Width</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">154</th>
+<td class="r data">270</td>
+<td class="r data">23.6</td>
+<td class="r data">26.0</td>
+<td class="r data">28.7</td>
+<td class="r data">8.3804</td>
+<td class="r data">4.2476</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">155</th>
+<td class="r data">270</td>
+<td class="r data">24.1</td>
+<td class="r data">26.5</td>
+<td class="r data">29.3</td>
+<td class="r data">8.1454</td>
+<td class="r data">4.2485</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">156</th>
+<td class="r data">306</td>
+<td class="r data">25.6</td>
+<td class="r data">28.0</td>
+<td class="r data">30.8</td>
+<td class="r data">8.7780</td>
+<td class="r data">4.6816</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">157</th>
+<td class="r data">540</td>
+<td class="r data">28.5</td>
+<td class="r data">31.0</td>
+<td class="r data">34.0</td>
+<td class="r data">10.7440</td>
+<td class="r data">6.5620</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">158</th>
+<td class="r data">800</td>
+<td class="r data">33.7</td>
+<td class="r data">36.4</td>
+<td class="r data">39.6</td>
+<td class="r data">11.7612</td>
+<td class="r data">6.5736</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">159</th>
+<td class="r data">1000</td>
+<td class="r data">37.3</td>
+<td class="r data">40.0</td>
+<td class="r data">43.5</td>
+<td class="r data">12.3540</td>
+<td class="r data">6.5250</td>
+</tr>
+</tbody>
+</table>
+<a href='#toc'>Back to Table of Contents</a></article>
+</section>
+</section>
+</body>
+</html>
